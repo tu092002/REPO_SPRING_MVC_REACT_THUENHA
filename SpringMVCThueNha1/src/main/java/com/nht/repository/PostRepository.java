@@ -18,12 +18,18 @@ public interface PostRepository {
 
     public List<Post> getPosts(Map<String, String> params);
 
-    public List<Post> getPostById(int idPost);
+    public Post getPostById(int id);
 
     public List<Post> getPostByAddress(String Address);
 
     public List<Post> getPostByGiaTien(double minPrice, double maxPrice);
 
     public int countPosts();
-    
+
+    public Post addPost(Post u);
+
+    public boolean deletePost(int id);
+
+    public boolean updateStatusPost(int id);
+
 }

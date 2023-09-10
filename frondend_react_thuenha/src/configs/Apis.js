@@ -9,7 +9,11 @@ export const endpoints =  {
     "user": `${SERVER_CONTEXT}/api/user/`,
     "comments": `${SERVER_CONTEXT}/api/comments/`,
     "login": `${SERVER_CONTEXT}/api/login/`,
-    "current-user": `${SERVER_CONTEXT}/api/current-user/`
+    "current-user": `${SERVER_CONTEXT}/api/current-user/`,
+    "register": `${SERVER_CONTEXT}/api/users/`,
+    "details": (idPost) => `${SERVER_CONTEXT}/api/posts/${idPost}/`,
+    "comments": (idPost) => `${SERVER_CONTEXT}/api/posts/${idPost}/comments/`,
+    "add-comment": `${SERVER_CONTEXT}/api/comments/`,
 
 }
 

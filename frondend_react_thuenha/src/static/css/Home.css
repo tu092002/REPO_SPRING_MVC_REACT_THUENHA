@@ -1,0 +1,42 @@
+.bg1 {
+  background-image: url('../img/bg2.jpg');
+}
+.post-container {
+    display: flex;
+    align-items: flex-start;
+    padding: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  
+  .user-avatar {
+    margin-right: 12px;
+  }
+  
+  .user-avatar img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+  
+  .post-content {
+    flex-grow: 1;
+  }
+  
+  .post-text {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    resize: none;
+  }
+  
+  .post-button {
+    background-color: #1877f2;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 12px;
+    cursor: pointer;
+  }
+  

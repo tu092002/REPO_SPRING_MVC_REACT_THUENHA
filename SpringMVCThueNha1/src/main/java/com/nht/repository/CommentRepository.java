@@ -6,13 +6,13 @@ package com.nht.repository;
 
 import com.nht.pojo.Comment;
 import java.util.List;
-import java.util.Map;
 
 /**
  *
- * @author nitro 5
+ * @author huu-thanhduong
  */
-
 public interface CommentRepository {
-     public List<Comment> getCommentsByPost(Map<String, String> params);
+    List<Comment> getComments(int idPost);
+    Comment addComment(Comment c);
+    
 }

@@ -69,9 +69,9 @@ public class indexController {
         model.addAttribute("users", this.userService.getAllUser(params));
         model.addAttribute("posts", this.postService.getPosts(params));
 
-        int count = this.userRepo.countUsers();
-        int pageSize = Integer.parseInt(this.env.getProperty("PAGE_SIZE").toString());
-        model.addAttribute("page", Math.ceil(count * 1.0 / pageSize));
+            int count = this.userRepo.countUsers();
+            int pageSize = Integer.parseInt(this.env.getProperty("PAGE_SIZE").toString());
+            model.addAttribute("page", Math.ceil(count * 1.0 / pageSize));
         return "index";
     }
 

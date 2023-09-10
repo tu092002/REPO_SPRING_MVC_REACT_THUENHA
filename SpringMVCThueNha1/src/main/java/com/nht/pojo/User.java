@@ -66,9 +66,7 @@ public class User implements Serializable {
     @Size(min = 1, max = 200)
     @Column(name = "password")
     private String password;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 200)
+    @Size(max = 200)
     @Column(name = "avatar")
     private String avatar;
     @Basic(optional = false)
@@ -83,7 +81,15 @@ public class User implements Serializable {
     @Size(min = 1, max = 45)
     @Column(name = "role")
     private String role;
-
+    // @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="Invalid phone/fax format, should be as xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "phone")
+    private String phone;
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUser")
+    private Set<Post> postSet;
     @Transient
     private MultipartFile file;
 
@@ -95,28 +101,6 @@ public class User implements Serializable {
         this.file = file;
     }
 
-    // @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="Invalid phone/fax format, should be as xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "phone")
-    private String phone;
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUser")
-    private Set<Post> postSet;
-    @JsonIgnore
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUser")
-    private Set<Comment> commentSet;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idChuTro")
-    @JsonIgnore
-
-    private Set<FollowChutroNguoithue> followChutroNguoithueSet;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idNguoiThue")
-    @JsonIgnore
-
-    private Set<FollowChutroNguoithue> followChutroNguoithueSet1;
-
     public User() {
     }
 
@@ -124,12 +108,11 @@ public class User implements Serializable {
         this.idUser = idUser;
     }
 
-    public User(Integer idUser, String hoten, String username, String password, String avatar, String address, String role, String phone) {
+    public User(Integer idUser, String hoten, String username, String password, String address, String role, String phone) {
         this.idUser = idUser;
         this.hoten = hoten;
         this.username = username;
         this.password = password;
-        this.avatar = avatar;
         this.address = address;
         this.role = role;
         this.phone = phone;
@@ -214,33 +197,6 @@ public class User implements Serializable {
 
     public void setPostSet(Set<Post> postSet) {
         this.postSet = postSet;
-    }
-
-    @XmlTransient
-    public Set<Comment> getCommentSet() {
-        return commentSet;
-    }
-
-    public void setCommentSet(Set<Comment> commentSet) {
-        this.commentSet = commentSet;
-    }
-
-    @XmlTransient
-    public Set<FollowChutroNguoithue> getFollowChutroNguoithueSet() {
-        return followChutroNguoithueSet;
-    }
-
-    public void setFollowChutroNguoithueSet(Set<FollowChutroNguoithue> followChutroNguoithueSet) {
-        this.followChutroNguoithueSet = followChutroNguoithueSet;
-    }
-
-    @XmlTransient
-    public Set<FollowChutroNguoithue> getFollowChutroNguoithueSet1() {
-        return followChutroNguoithueSet1;
-    }
-
-    public void setFollowChutroNguoithueSet1(Set<FollowChutroNguoithue> followChutroNguoithueSet1) {
-        this.followChutroNguoithueSet1 = followChutroNguoithueSet1;
     }
 
     @Override

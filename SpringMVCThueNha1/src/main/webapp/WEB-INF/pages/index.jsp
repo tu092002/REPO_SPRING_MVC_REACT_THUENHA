@@ -62,7 +62,7 @@
 
 
                             <c:url value="/api/user/${u.idUser}" var="apiDel" />
-                            <button class="btn btn-danger" onclick="deleteProduct('${apiDel}')">Xóa</button>
+                            <button class="btn btn-danger" onclick="deleteUser('${apiDel}')">Xóa</button>
                         </td>
                     </tr>
                 </c:forEach>

@@ -10,6 +10,8 @@ import Login from "./components/login";
 import { useReducer } from "react";
 import MyUserReducer from "./reducers/MyUserReducer";
 import cookie from "react-cookies";
+import Register from "./components/Register";
+import PostDetails from "./components/PostDetails";
 
 
 
@@ -27,6 +29,8 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/MyPage" element={<MyPage />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/posts/:idPost" element={<PostDetails />} />
 
 
         </Routes>

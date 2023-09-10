@@ -6,9 +6,7 @@ package com.nht.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
-import java.util.Set;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,13 +16,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -41,7 +37,7 @@ import org.springframework.web.multipart.MultipartFile;
     @NamedQuery(name = "Post.findByAddressPost", query = "SELECT p FROM Post p WHERE p.addressPost = :addressPost"),
     @NamedQuery(name = "Post.findByImgPost", query = "SELECT p FROM Post p WHERE p.imgPost = :imgPost"),
     @NamedQuery(name = "Post.findByStatus", query = "SELECT p FROM Post p WHERE p.status = :status"),
-    @NamedQuery(name = "Post.findByLike", query = "SELECT p FROM Post p WHERE p.like = :like"),
+    @NamedQuery(name = "Post.findByLikePost", query = "SELECT p FROM Post p WHERE p.likePost = :likePost"),
     @NamedQuery(name = "Post.findBySoluongNguoi", query = "SELECT p FROM Post p WHERE p.soluongNguoi = :soluongNguoi"),
     @NamedQuery(name = "Post.findByGiaTien", query = "SELECT p FROM Post p WHERE p.giaTien = :giaTien")})
 public class Post implements Serializable {
@@ -68,28 +64,23 @@ public class Post implements Serializable {
     @Column(name = "imgPost")
     private String imgPost;
     @Basic(optional = false)
-    @NotNull
+//    @NotNull
     @Column(name = "status")
     private int status;
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "like")
-    private int like;
-    @Basic(optional = false)
-    @NotNull
+//    @NotNull
+    @Column(name = "likePost")
+    private int likePost;
     @Column(name = "soluongNguoi")
-    private int soluongNguoi;
+    private Integer soluongNguoi;
     @Basic(optional = false)
     @NotNull
     @Column(name = "giaTien")
     private double giaTien;
+//    @JsonIgnore
     @JoinColumn(name = "idUser", referencedColumnName = "idUser")
-    @JsonIgnore
     @ManyToOne(optional = false)
     private User idUser;
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPost")
-    private Set<Comment> commentSet;
     @Transient
     private MultipartFile file;
 
@@ -100,7 +91,6 @@ public class Post implements Serializable {
     public void setFile(MultipartFile file) {
         this.file = file;
     }
-
     public Post() {
     }
 
@@ -108,14 +98,13 @@ public class Post implements Serializable {
         this.idPost = idPost;
     }
 
-    public Post(Integer idPost, String titlePost, String addressPost, String imgPost, int status, int like, int soluongNguoi, double giaTien) {
+    public Post(Integer idPost, String titlePost, String addressPost, String imgPost, int status, int likePost, double giaTien) {
         this.idPost = idPost;
         this.titlePost = titlePost;
         this.addressPost = addressPost;
         this.imgPost = imgPost;
         this.status = status;
-        this.like = like;
-        this.soluongNguoi = soluongNguoi;
+        this.likePost = likePost;
         this.giaTien = giaTien;
     }
 
@@ -159,19 +148,19 @@ public class Post implements Serializable {
         this.status = status;
     }
 
-    public int getLike() {
-        return like;
+    public int getLikePost() {
+        return likePost;
     }
 
-    public void setLike(int like) {
-        this.like = like;
+    public void setLikePost(int likePost) {
+        this.likePost = likePost;
     }
 
-    public int getSoluongNguoi() {
+    public Integer getSoluongNguoi() {
         return soluongNguoi;
     }
 
-    public void setSoluongNguoi(int soluongNguoi) {
+    public void setSoluongNguoi(Integer soluongNguoi) {
         this.soluongNguoi = soluongNguoi;
     }
 
@@ -189,15 +178,6 @@ public class Post implements Serializable {
 
     public void setIdUser(User idUser) {
         this.idUser = idUser;
-    }
-
-    @XmlTransient
-    public Set<Comment> getCommentSet() {
-        return commentSet;
-    }
-
-    public void setCommentSet(Set<Comment> commentSet) {
-        this.commentSet = commentSet;
     }
 
     @Override
@@ -224,5 +204,5 @@ public class Post implements Serializable {
     public String toString() {
         return "com.nht.pojo.Post[ idPost=" + idPost + " ]";
     }
-
+    
 }

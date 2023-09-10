@@ -1,14 +1,18 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Image } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
+import { MyUserContext } from "../App";
+import React from 'react';
+
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import { Link,useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Header = () => {
+    const [user, dispatch] = useContext(MyUserContext);
 
     const [kw, setKw] = useState("");
     const nav = useNavigate();
@@ -17,12 +21,16 @@ const Header = () => {
         nav(`/?kw=${kw}`);
     }
 
-
+    const logout = () => {
+        dispatch({
+            "type": "logout"
+        })
+    }
 
     return (<Navbar expand="lg" className="bg-body-tertiary">
         <Container>
             <Navbar.Brand href="#">
-            <img src='https://www.tromoi.com/logo_text_blue.png' style={{width: '100px'}} />
+                <img src='https://www.tromoi.com/logo_text_blue.png' style={{ width: '100px' }} />
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="navbarScroll" />
             <Navbar.Collapse id="navbarScroll">
@@ -33,27 +41,23 @@ const Header = () => {
                 >
                     <Nav.Link as={Link} to="/">Home</Nav.Link>
                     <Nav.Link as={Link} to="/MyPage">MyPage</Nav.Link>
-                    <Nav.Link as={Link} to="/login">Login</Nav.Link>
-                    <NavDropdown title="Link" id="navbarScrollingDropdown">
-                        <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                        <NavDropdown.Item href="#action4">
-                            Another action
-                        </NavDropdown.Item>
-                        <NavDropdown.Divider />
-                        <NavDropdown.Item href="#action5">
-                            Something else here
-                        </NavDropdown.Item>
-                    </NavDropdown>
-                    <Nav.Link href="#" disabled>
-                        Link
-                    </Nav.Link>
+                    {user === null ?
+                        <Link className="text-success nav-link" to="/login">Đăng nhập</Link> :
+                        <React.Fragment>
+                            <Link className="text-danger nav-link" to="/">Chào {user.username}!</Link>
+                            <Button variant="danger" onClick={logout}>Đăng xuất</Button>
+                        </React.Fragment>}
+
+                    <Nav.Link as={Link} to="/Register">Register</Nav.Link>
+
+                  
                 </Nav>
                 <Form onSubmit={searchPost} className="d-flex">
                     <Form.Control
                         type="search"
                         placeholder="Search"
-                        value = {kw}
-                        onChange={e => setKw(e.target.value )}
+                        value={kw}
+                        onChange={e => setKw(e.target.value)}
                         className="me-2"
                         aria-label="Search"
                     />

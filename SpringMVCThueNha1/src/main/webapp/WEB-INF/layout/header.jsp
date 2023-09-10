@@ -19,7 +19,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="${action}#">Trang chủ</a>
                 </li>
-
+                <li class="nav-item">
+                    <a class="nav-link" href="<c:url value="/post" />">Quản lí Post</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="${searchUrl}">${c.name}</a>
                 </li>

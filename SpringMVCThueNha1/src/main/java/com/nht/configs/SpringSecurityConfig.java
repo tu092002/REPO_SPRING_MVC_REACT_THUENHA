@@ -68,7 +68,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .accessDeniedPage("/login?accessDenied");
         
 //        http.authorizeRequests().antMatchers("/").permitAll()
-//                .antMatchers("/**/add")
+//                .antMatchers("/api/posts/**")
 //                .access("hasRole('ROLE_ADMIN')");
 //        .antMatchers("/**/pay")
 //                .access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
@@ -80,7 +80,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         Cloudinary cloudinary
                 = new Cloudinary(ObjectUtils.asMap(
                         "cloud_name", this.env.getProperty("cloudinary.cloud_name"),
-                        "api_key", this.env.getProperty("cloudinary.api_id"),
+                        "api_key", this.env.getProperty("cloudinary.api_key"),
                         "api_secret", this.env.getProperty("cloudinary.api_secret"),
                         "secure", true));
         return cloudinary;

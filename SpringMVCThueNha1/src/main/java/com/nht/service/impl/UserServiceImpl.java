@@ -74,7 +74,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean addOrUpdateUser(User u) {
         u.setAvatar("https://res.cloudinary.com/dibadhds0/image/upload/v1670146386/avatar_patient/avt2_bc5fhn.jpg");
-        u.setPassword(passwordEncoder.encode(u.getAddress()));
+        u.setPassword(passwordEncoder.encode(u.getPassword()));  
         if (u.getFile() != null) {
             if (!u.getFile().isEmpty()) {
                 try {
@@ -112,8 +112,10 @@ public class UserServiceImpl implements UserService {
         u.setPassword(this.passwordEncoder.encode(params.get("password")));
 
         u.setAddress(params.get("address"));
+        u.setPhone(params.get("phone"));
+
         u.setActive(1);
-        u.setRole(params.get("ROLE_USER"));
+        u.setRole(params.get("role"));
         if (!avatar.isEmpty()) {
             try {
                 Map res = this.cloudinary.uploader().upload(avatar.getBytes(),

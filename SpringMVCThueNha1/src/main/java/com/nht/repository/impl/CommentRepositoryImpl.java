@@ -5,17 +5,13 @@
 package com.nht.repository.impl;
 
 import com.nht.pojo.Comment;
-import com.nht.pojo.Post;
 import com.nht.repository.CommentRepository;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.Query;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.query.Query;
+import org.hibernate.boot.spi.SessionFactoryBuilderFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
@@ -23,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author nitro 5
+ * @author huu-thanhduong
  */
 @Repository
 @Transactional
@@ -32,30 +28,25 @@ public class CommentRepositoryImpl implements CommentRepository {
     @Autowired
     private LocalSessionFactoryBean factory;
 
-    public List<Comment> getCommentsByPost(Map<String, String> params) {
-
+    @Override
+    public List<Comment> getComments(int idPost) {
         Session s = this.factory.getObject().getCurrentSession();
-        CriteriaBuilder b = s.getCriteriaBuilder();
-        CriteriaQuery<Comment> q = b.createQuery(Comment.class);
-        Root root = q.from(Comment.class);
-        q.select(root);
+        Query q = s.createQuery("From Comment Where idPost.id=:id");
+        q.setParameter("id", idPost);
 
-        if (params != null) {
-            List<Predicate> predicates = new ArrayList<>();
+        return q.getResultList();
+    }
 
-            String postId = params.get("postId");
-            if (postId != null && !postId.isEmpty()) {
-                predicates.add(b.equal(root.get("postId"), Integer.parseInt(postId)));
-            }
-                
-            q.where(predicates.toArray(Predicate[]::new));
+    @Override
+    public Comment addComment(Comment c) {
+        Session s = this.factory.getObject().getCurrentSession();
+        try {
+            s.save(c);
+            return c;
+        } catch (HibernateException ex) {
+            ex.printStackTrace();
+            return null;
         }
-
-        q.orderBy(b.desc(root.get("idComment")));
-
-        Query query = s.createQuery(q);
-        return query.getResultList();
-
     }
 
 }

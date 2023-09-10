@@ -10,7 +10,6 @@ com\nht\controllers\ApiUserController.class
 com\nht\configs\SecurityWebApplicationInitializer.class
 com\nht\repository\UserRepository.class
 com\nht\formatter\PostFormatter.class
-com\nht\controllers\ApiCommentController.class
 com\nht\pojo\Post.class
 com\nht\pojo\FollowChutroNguoithue.class
 com\nht\service\PostService.class

@@ -25,10 +25,19 @@
         <input type="password" class="form-control" path="password" id="password" placeholder="password" name="password" value="${user.password}">
         <label for="password">password</label>
     </div>
+    <!--    <div class="form-floating mb-3 mt-3">
+            <input type="text" class="form-control" path="avatar" id="file" placeholder="avatar" name="avatar" value="${user.avatar}">
+            <label for="file">avatar</label>
+        </div>-->
     <div class="form-floating mb-3 mt-3">
-        <input type="text" class="form-control" path="avatar" id="file" placeholder="avatar" name="avatar" value="${user.avatar}">
-        <label for="file">avatar</label>
+        <form:input type="file" class="form-control" 
+                    path="file" id="file"  />
+        <label for="file">Ảnh sản phẩm</label>
+        <c:if test="${user.avatar!= null}">
+            <img src="${user.avatar}" width="120" />
+        </c:if>
     </div>
+
     <div class="form-floating mb-3 mt-3">
         <input type="" class="form-control" path="address" id="address" placeholder="address" name="address" value="${user.address}">
         <label for="address">address</label>
@@ -70,11 +79,11 @@
 
 
 
-   <div class="form-floating mb-3 mt-3">
+    <div class="form-floating mb-3 mt-3">
         <button type="submit" class="btn btn-info">
             <c:choose>
                 <c:when test="${user.idUser != null}">Cập nhật sản phẩm</c:when>
-                <c:otherwise>Thêm sản phẩm</c:otherwise>
+                <c:otherwise>Thêm User</c:otherwise>
             </c:choose>
         </button>
     </div>

@@ -9,6 +9,7 @@ import com.cloudinary.utils.ObjectUtils;
 import com.nht.formatter.PostFormatter;
 import com.nht.formatter.UserFormatter;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -16,6 +17,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
@@ -36,7 +39,7 @@ import org.springframework.web.servlet.view.JstlView;
 })
 @PropertySource("classpath:configs.properties")
 public class WebAppContextConfig implements
-        WebMvcConfigurer {
+        WebMvcConfigurer  {
 
     @Autowired
     private Environment env;
@@ -53,6 +56,7 @@ public class WebAppContextConfig implements
         registry.addFormatter(new UserFormatter());
     }
 
+  
     public WebAppContextConfig() {
     }
 
@@ -76,7 +80,6 @@ public class WebAppContextConfig implements
 //    public SimpleDateFormat simpleDateFormat() {
 //        return new SimpleDateFormat("yyyy-MM-dd");
 //    }
-
     @Bean
     public CommonsMultipartResolver multipartResolver() {
         CommonsMultipartResolver resolver

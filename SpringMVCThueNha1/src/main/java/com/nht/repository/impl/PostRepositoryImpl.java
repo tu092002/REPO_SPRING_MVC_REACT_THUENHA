@@ -15,6 +15,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.validation.ReportAsSingleViolation;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,13 +86,18 @@ public class PostRepositoryImpl implements PostRepository {
         return query.getResultList();
     }
 
+//    @Override
+//    public List<Post> getPostById(int idPost) {
+//        Session s = this.factory.getObject().getCurrentSession();
+//        Query q = s.createQuery("FROM Post p "
+//                + "WHERE p.idPost = :idPost");
+//        q.setParameter("idPost", idPost);
+//        return q.getResultList();
+//    }
     @Override
-    public List<Post> getPostById(int idPost) {
-        Session s = this.factory.getObject().getCurrentSession();
-        Query q = s.createQuery("FROM Post p "
-                + "WHERE p.idPost = :idPost");
-        q.setParameter("idPost", idPost);
-        return q.getResultList();
+    public Post getPostById(int id) {
+        Session session = this.factory.getObject().getCurrentSession();
+        return session.get(Post.class, id);
     }
 
     @Override
@@ -122,6 +128,41 @@ public class PostRepositoryImpl implements PostRepository {
         Query q = s.createQuery("SELECT COUNT(*) FROM Post");
 
         return Integer.parseInt(q.getSingleResult().toString());
+    }
+
+    @Override
+    public Post addPost(Post u) {
+        Session s = this.factory.getObject().getCurrentSession();
+        s.save(u);
+
+        return u;
+    }
+
+    @Override
+    public boolean deletePost(int id) {
+        Session s = this.factory.getObject().getCurrentSession();
+        try {
+            Post u = this.getPostById(id);
+            s.delete(u);
+            return true;
+        } catch (HibernateException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public boolean updateStatusPost(int id) {
+        Session s = this.factory.getObject().getCurrentSession();
+        // Định dạng câu truy vấn HQL UPDATE
+    
+            String hqlUpdate = "UPDATE Post SET status = :newValue WHERE conditionField = :condition";
+            Query q = s.createQuery(hqlUpdate);
+            q.setParameter("newValue", 1);
+            q.setParameter("condition", id);
+                return true;
+      
+
     }
 
 }

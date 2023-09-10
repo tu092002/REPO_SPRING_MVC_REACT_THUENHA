@@ -13,8 +13,9 @@ import org.springframework.stereotype.Service;
  *
  * @author nitro 5
  */
-
 public interface CommentService {
-        List<Comment> getCommentsByPost(Map<String,String> params);
 
+    List<Comment> getComments(int idPost);
+
+    Comment addComment(Comment c);
 }

@@ -72,7 +72,7 @@ public class UserRepositoryImpl implements UserRepository {
             }
             q.where(predicates.toArray(Predicate[]::new));
 
-        }
+        }   
 
         q.orderBy(b.desc(root.get("idUser")));
         Query query = s.createQuery(q);
@@ -114,7 +114,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public User getUserById(int id) {
+    public User getUserById(int id) {   
         Session s = this.factory.getObject().getCurrentSession();
         return s.get(User.class, id);
     }

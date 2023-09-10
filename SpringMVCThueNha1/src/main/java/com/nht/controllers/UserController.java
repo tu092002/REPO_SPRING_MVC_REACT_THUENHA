@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class UserController {
 
     @Autowired
-    private UserService UserService;
+    private UserService userService;
 
     @GetMapping("/login")
     public String login() {
@@ -37,14 +37,14 @@ public class UserController {
 
     @GetMapping("/user/{id}")
     public String update(Model model, @PathVariable(value = "id") int id) {
-        model.addAttribute("user", this.UserService.getUserById(id));
+        model.addAttribute("user", this.userService.getUserById(id));
 
         return "user";
     }
 
     @PostMapping("/user")
     public String add(@ModelAttribute(value = "user") User u) {
-        if (UserService.addOrUpdateUser(u) == true) {
+        if (this.userService.addOrUpdateUser(u) == true) {
             return "redirect:/";
         }   
         return "user";

@@ -7,6 +7,7 @@ package com.nht.repository;
 import com.nht.pojo.User;
 import java.util.List;
 import java.util.Map;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -23,7 +24,12 @@ public interface UserRepository {
     public boolean addOrUpdateUser(User u);
 
     public User getUserById(int id);
+
     public boolean deleteUser(int id);
+
     public User addUser(User u);
-     public boolean authUser(String username, String password);
+
+    public boolean authUser(String username, String password);
+
+
 }

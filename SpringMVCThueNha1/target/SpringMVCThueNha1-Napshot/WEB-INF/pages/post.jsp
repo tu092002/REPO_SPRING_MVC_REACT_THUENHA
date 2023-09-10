@@ -13,15 +13,17 @@
     <title>post</title>
 </head>
 <h1 class="text-center text-danger">Quản lí Post</h1>
+<p class="text-center text-danger">${message}</p>
+
 
 <table class="table">
-    
-            <table class="table table-hover">
+
+    <table class="table table-hover">
         <thead>
             <tr>
                 <th></th>
                 <th></th>
-                <th>Tên sản phẩm</th>
+                <th>Tên bài post</th>
                 <th>Gía</th>
                 <th></th>
             </tr>
@@ -36,13 +38,18 @@
                     <td>${p.titlePost}</td>
                     <td>${p.addressPost} </td>
                     <td>
-                        <se:authorize access="hasRole('ROLE_ADMIN')">
-                        <c:url value="/posts/${p.idPost}" var="api" />
-                        <a href="${api}" class="btn btn-info">DUYỆT BÀI</a>
-                        <button class="btn btn-danger" onclick="deleleProduct('${api}')">XÓA BÀI</button>
-                        </se:authorize>
-                    </td>
-                </tr>
-            </c:forEach>
+            <se:authorize access="hasRole('ROLE_ADMIN')">
+                <c:url value="/api/post/${p.idPost}/status" var="api" />
+                <button class="btn btn-info" onclick="updateStatusPostJS('${apiDel}')">Duyệt Bài</button>
+
+
+                <c:url value="/api/post/${p.idPost}" var="apiDel" />
+                <button class="btn btn-danger" onclick="deletePost('${apiDel}')">Xóa</button>
+            </se:authorize>
+            </td>
+            </tr>
+        </c:forEach>
         </tbody>
+        <script src="<c:url value="/js/main.js" />"></script>
+
     </table>
